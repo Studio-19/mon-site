@@ -1,11 +1,10 @@
 import { motion } from 'framer-motion';
-import { Mail, Linkedin, ArrowRight } from 'lucide-react';
-
+import { Mail, ArrowRight, ExternalLink } from "lucide-react";
 const Contact = () => {
   return (
     <section id="contact" className="py-24 px-6 relative bg-slate-950 border-t border-slate-900">
       <div className="max-w-4xl mx-auto text-center">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
