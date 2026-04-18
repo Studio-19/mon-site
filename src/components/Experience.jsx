@@ -1,78 +1,147 @@
-import { motion } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import { UtensilsCrossed, Monitor } from 'lucide-react';
+import { useRef } from 'react';
+
+const experiences = [
+  {
+    id: 1,
+    title: 'Développeur Web Indépendant',
+    date: 'Projet Récent',
+    icon: <Monitor size={22} className="text-blue-400" />,
+    description:
+      "Conception et création de A à Z d'un site web complet pour un particulier. De l'analyse des besoins au maquettage UX/UI, jusqu'au développement technique.",
+    skills: ['React', 'UI/UX', 'Tailwind CSS', 'Gestion de Projet'],
+    dotColor: 'bg-blue-500',
+    glowColor: 'rgba(59, 130, 246, 0.3)',
+  },
+  {
+    id: 2,
+    title: 'Secteur de la Restauration',
+    date: 'Depuis mes 15 ans',
+    icon: <UtensilsCrossed size={22} className="text-gray-400" />,
+    description:
+      "Plusieurs années d'expérience en restauration. Cette expérience fondatrice m'a forgé une rigueur à toute épreuve, une grande résistance au stress et un sens aigu du contact client.",
+    skills: ['Rigueur', 'Contact Client', "Travail d'équipe", 'Adaptabilité'],
+    dotColor: 'bg-slate-500',
+    glowColor: 'rgba(100, 116, 139, 0.2)',
+  },
+];
 
 const Experience = () => {
-  const experiences = [
-    {
-      id: 1,
-      title: "Développeur Web junior",
-      date: "Projet Récent",
-      icon: <Monitor size={24} className="text-blue-400" />,
-      description: "Conception et création de A à Z d'un site web complet pour un particulier. De l'analyse des besoins au maquettage UX/UI, jusqu'au développement technique.",
-      skills: ["React", "UI/UX", "Tailwind CSS", "Gestion de Projet"]
-    },
-    {
-      id: 2,
-      title: "Secteur de la Restauration",
-      date: "Depuis mes 15 ans",
-      icon: <UtensilsCrossed size={24} className="text-gray-400" />,
-      description: "Plusieurs années d'expérience en restauration. Cette expérience fondatrice m'a forgé une rigueur à toute épreuve, une grande résistance au stress et un sens aigu du contact client.",
-      skills: ["Rigueur", "Contact Client", "Travail d'équipe", "Adaptabilité"]
-    }
-  ];
+  const lineRef = useRef(null);
+  const lineInView = useInView(lineRef, { once: true, margin: '-80px' });
 
   return (
-    <section id="experience" className="py-24 px-6 relative bg-brand-blue">
-      <div className="max-w-6xl mx-auto">
+    <section id="experience" className="py-28 px-6 relative bg-brand-blue overflow-hidden">
+      {/* Background accent */}
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[600px] bg-blue-900/8 rounded-full blur-[200px] pointer-events-none" />
+      <div className="absolute inset-0 dot-grid opacity-30" />
+
+      <div className="max-w-4xl mx-auto relative">
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mb-16 text-center"
+          className="mb-20 text-center"
         >
-          <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">Mes <span className="text-blue-400">Expériences</span></h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">Un parcours atypique qui allie savoir-être terrain et compétences techniques.</p>
+          <span className="text-blue-400 font-semibold tracking-widest text-xs uppercase mb-3 block">
+            Mon Parcours
+          </span>
+          <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
+            Mes <span className="text-blue-400">Expériences</span>
+          </h2>
+          <p className="text-gray-400 max-w-lg mx-auto">
+            Un parcours atypique qui allie savoir-être terrain et compétences techniques.
+          </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-8">
-          {experiences.map((exp, index) => (
-            <motion.div
-              key={exp.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.2 }}
-              whileHover={{ y: -8, transition: { duration: 0.2 } }}
-              className="glass p-8 rounded-3xl border border-blue-900/40 relative overflow-hidden group shadow-lg cursor-default"
-            >
-              {/* Background accent glow on hover */}
-              <div className="absolute top-0 right-0 p-32 bg-blue-500/5 rounded-full blur-[80px] group-hover:bg-blue-400/10 transition-colors pointer-events-none" />
+        {/* Timeline */}
+        <div ref={lineRef} className="relative">
+          {/* Vertical line track */}
+          <div className="absolute left-5 md:left-1/2 top-0 bottom-0 w-px bg-slate-800/80 md:-translate-x-px" />
 
-              <div className="flex items-start justify-between relative z-10 mb-6">
-                <div className="h-14 w-14 rounded-2xl bg-slate-800 flex items-center justify-center border border-slate-700">
-                  {exp.icon}
-                </div>
-                <span className="text-sm font-semibold px-4 py-1.5 rounded-full bg-slate-800 text-gray-300 border border-slate-700">
-                  {exp.date}
-                </span>
-              </div>
+          {/* Animated fill line */}
+          <motion.div
+            className="absolute left-5 md:left-1/2 top-0 w-px bg-gradient-to-b from-blue-500 via-blue-400/50 to-transparent md:-translate-x-px origin-top"
+            initial={{ scaleY: 0 }}
+            animate={lineInView ? { scaleY: 1 } : {}}
+            transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
+            style={{ bottom: 0 }}
+          />
 
-              <div className="relative z-10">
-                <h3 className="text-xl sm:text-2xl font-bold text-white mb-3">{exp.title}</h3>
-                <p className="text-gray-400 mb-6 leading-relaxed">
-                  {exp.description}
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {exp.skills.map(skill => (
-                    <span key={skill} className="text-xs font-medium px-3 py-1 bg-blue-900/30 text-blue-300 rounded-md border border-blue-800/50">
-                      {skill}
-                    </span>
-                  ))}
+          <div className="space-y-16">
+            {experiences.map((exp, index) => (
+              <motion.div
+                key={exp.id}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-60px' }}
+                transition={{ duration: 0.6, delay: index * 0.15, ease: [0.16, 1, 0.3, 1] }}
+                className={`relative flex gap-0 md:gap-0 ${
+                  index % 2 === 0
+                    ? 'md:flex-row'
+                    : 'md:flex-row-reverse'
+                }`}
+              >
+                {/* Timeline dot */}
+                <div
+                  className={`absolute left-5 md:left-1/2 top-7 w-4 h-4 ${exp.dotColor} rounded-full -translate-x-[7px] md:-translate-x-2 ring-4 ring-brand-blue z-10 transition-all`}
+                  style={{ boxShadow: `0 0 12px ${exp.glowColor}` }}
+                />
+
+                {/* Desktop spacer */}
+                <div className="hidden md:block md:w-1/2" />
+
+                {/* Card */}
+                <div className="pl-14 md:pl-0 w-full md:w-1/2 md:px-10">
+                  <motion.div
+                    whileHover={{ y: -6 }}
+                    transition={{ duration: 0.2 }}
+                    className="border-gradient glass-dark p-6 sm:p-8 rounded-3xl relative overflow-hidden group shadow-xl"
+                    style={{
+                      boxShadow: `0 4px 40px ${exp.glowColor}`,
+                    }}
+                  >
+                    {/* Glow on hover */}
+                    <div
+                      className="absolute -top-10 -right-10 w-40 h-40 rounded-full blur-[70px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                      style={{ background: exp.glowColor }}
+                    />
+
+                    {/* Card header */}
+                    <div className="flex items-start justify-between relative z-10 mb-5">
+                      <div className="h-12 w-12 rounded-2xl bg-slate-800 flex items-center justify-center border border-slate-700 group-hover:border-slate-600 transition-colors">
+                        {exp.icon}
+                      </div>
+                      <span className="text-xs font-semibold px-3 py-1.5 rounded-full bg-slate-800/80 text-gray-300 border border-slate-700">
+                        {exp.date}
+                      </span>
+                    </div>
+
+                    {/* Card body */}
+                    <div className="relative z-10">
+                      <h3 className="text-lg sm:text-xl font-bold text-white mb-3 group-hover:text-blue-200 transition-colors">
+                        {exp.title}
+                      </h3>
+                      <p className="text-gray-400 mb-5 leading-relaxed text-sm">{exp.description}</p>
+                      <div className="flex flex-wrap gap-2">
+                        {exp.skills.map((skill) => (
+                          <span
+                            key={skill}
+                            className="text-xs font-medium px-3 py-1 bg-blue-900/25 text-blue-300 rounded-lg border border-blue-800/40 hover:bg-blue-900/40 transition-colors"
+                          >
+                            {skill}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </motion.div>
                 </div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
