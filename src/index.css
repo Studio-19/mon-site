@@ -25,38 +25,83 @@
 
   .glass-dark {
     @apply bg-slate-900/80 backdrop-blur-md border border-slate-800/60;
+    /* Isolate each card's paint to avoid triggering full-page repaints on hover */
+    contain: layout style paint;
+    /* Pre-promote to its own compositor layer for instant hover response */
+    will-change: transform;
   }
 }
 
 @keyframes gradient-shift {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 @keyframes float-slow {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-14px) rotate(2deg); }
+
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-14px) rotate(2deg);
+  }
 }
 
 @keyframes float-medium {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 @keyframes blob-drift {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(30px, -20px) scale(1.08); }
-  66% { transform: translate(-20px, 15px) scale(0.95); }
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  33% {
+    transform: translate(30px, -20px) scale(1.08);
+  }
+
+  66% {
+    transform: translate(-20px, 15px) scale(0.95);
+  }
 }
 
 @keyframes shimmer {
-  0% { background-position: -200% center; }
-  100% { background-position: 200% center; }
+  0% {
+    background-position: -200% center;
+  }
+
+  100% {
+    background-position: 200% center;
+  }
 }
 
 @keyframes timeline-grow {
-  from { transform: scaleY(0); }
-  to { transform: scaleY(1); }
+  from {
+    transform: scaleY(0);
+  }
+
+  to {
+    transform: scaleY(1);
+  }
 }
 
 .animate-gradient-shift {
@@ -86,7 +131,7 @@
 }
 
 .dot-grid {
-  background-image: radial-gradient(circle, rgba(99,179,237,0.08) 1px, transparent 1px);
+  background-image: radial-gradient(circle, rgba(99, 179, 237, 0.08) 1px, transparent 1px);
   background-size: 32px 32px;
 }
 
@@ -101,13 +146,14 @@
 .border-gradient {
   position: relative;
 }
+
 .border-gradient::before {
   content: '';
   position: absolute;
   inset: -1px;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(135deg, rgba(96,165,250,0.5), rgba(165,180,252,0.2), rgba(96,165,250,0.5));
+  background: linear-gradient(135deg, rgba(96, 165, 250, 0.5), rgba(165, 180, 252, 0.2), rgba(96, 165, 250, 0.5));
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;

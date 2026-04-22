@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Mail, ArrowRight, ExternalLink, Sparkles } from 'lucide-react';
+import { Mail, ArrowRight, ExternalLink, Sparkles, Download, Globe } from 'lucide-react';
 
 const contactLinks = [
   {
@@ -15,6 +15,21 @@ const contactLinks = [
     label: 'Mon Profil LinkedIn',
     sub: 'Doryann Genin',
     external: true,
+  },
+  {
+    href: 'https://doryann-portefolio.netlify.app',
+    icon: <Globe size={20} className="text-blue-400 group-hover:scale-110 transition-transform shrink-0" />,
+    label: 'Mon Portfolio',
+    sub: 'doryann-portefolio.netlify.app',
+    external: true,
+  },
+  {
+    href: '/CV.pdf',
+    icon: <Download size={20} className="text-blue-400 group-hover:scale-110 transition-transform shrink-0" />,
+    label: 'Télécharger mon CV',
+    sub: 'CV_Doryann_Genin.pdf',
+    external: false,
+    download: 'CV_Doryann_Genin.pdf',
   },
 ];
 
@@ -69,7 +84,7 @@ const Contact = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="flex flex-col sm:flex-row justify-center gap-4 mb-20"
+          className="flex flex-col sm:flex-row flex-wrap justify-center gap-4 mb-20"
         >
           {contactLinks.map((link) => (
             <motion.a
@@ -77,6 +92,7 @@ const Contact = () => {
               href={link.href}
               target={link.external ? '_blank' : undefined}
               rel={link.external ? 'noopener noreferrer' : undefined}
+              download={link.download ?? undefined}
               whileHover={{ y: -4, scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               className="group border-gradient glass-dark px-7 py-5 rounded-2xl flex items-center gap-4 hover:bg-slate-800/70 transition-all cursor-pointer w-full sm:w-auto justify-between sm:justify-start"

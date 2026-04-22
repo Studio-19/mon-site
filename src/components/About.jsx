@@ -1,5 +1,5 @@
 import { motion, useInView } from 'framer-motion';
-import { Code, Briefcase, User, Zap } from 'lucide-react';
+import { Code, Briefcase, Database, GitBranch, Cpu, Globe } from 'lucide-react';
 import { useRef, useEffect, useState } from 'react';
 
 const Counter = ({ target, suffix = '' }) => {
@@ -30,30 +30,30 @@ const Counter = ({ target, suffix = '' }) => {
 
 const stats = [
   { value: 2, suffix: '+', label: "Ans d'expérience web" },
-  { value: 5, suffix: '+', label: 'Projets réalisés' },
-  { value: 19, suffix: '', label: 'Ans, HEPL Liège' },
+  { value: 3, suffix: '+', label: 'Projets réalisés' },
+  { value: 7, suffix: '', label: 'Compétences clés' },
 ];
 
 const cards = [
   {
-    icon: <Briefcase size={22} />,
-    title: 'Business',
-    desc: "Étudiant à l'HEPL Liège, axé sur la stratégie et les résultats.",
-  },
-  {
     icon: <Code size={22} />,
-    title: 'Web Design',
-    desc: "Interfaces modernes, fluides et centrées sur l'utilisateur.",
+    title: 'HTML / CSS / JS / PHP',
+    desc: 'Développement de sites vitrines complets, responsive et optimisés.',
   },
   {
-    icon: <User size={22} />,
-    title: 'UX / UI',
-    desc: 'Du wireframe au pixel parfait, pensé pour convertir.',
+    icon: <Database size={22} />,
+    title: 'Base de données',
+    desc: 'Formulaires reliés à MySQL via phpMyAdmin, tests et qualité du code.',
   },
   {
-    icon: <Zap size={22} />,
-    title: 'Performance',
-    desc: 'Sites rapides, accessibles et optimisés tous appareils.',
+    icon: <GitBranch size={22} />,
+    title: 'GitHub & Odoo',
+    desc: "Versioning, déploiement Netlify et maîtrise de l'ERP Odoo.",
+  },
+  {
+    icon: <Cpu size={22} />,
+    title: 'IA & e-Business',
+    desc: "Maîtrise d'outils IA spécifiques, stratégie digitale et vision business.",
   },
 ];
 
@@ -126,17 +126,20 @@ const About = () => {
           >
             <p>
               Je m'appelle{' '}
-              <strong className="text-white">Doryann Genin</strong>, j'ai 19 ans, et je suis actuellement
-              étudiant en deuxième année de{' '}
-              <strong className="text-white">Business à l'HEPL</strong> de Liège.
+              <strong className="text-white">Doryann Genin</strong>, étudiant en{' '}
+              <strong className="text-white">Bachelier e-business à l'HEPL Liège</strong> (depuis 2024),
+              après un CESS en construction et travaux publics à l'Institut Pierrard de Virton.
             </p>
             <p>
-              Passionné par la création de sites web, le web design et l'expérience utilisateur (UX/UI),
-              j'aime transformer des idées abstraites en interfaces modernes, propres et performantes.
+              Passionné par la création de sites web, je maîtrise{' '}
+              <strong className="text-white">HTML, CSS, JavaScript, PHP</strong> et les bases de données MySQL.
+              J'ai aussi de l'expérience avec{' '}
+              <strong className="text-white">GitHub, Odoo et des outils IA spécifiques</strong>.
             </p>
             <p>
-              Mon parcours hybride — cursus business et passion technique — me permet de comprendre
-              les enjeux réels d'une entreprise pour y répondre avec des solutions digitales adaptées.
+              Mon parcours atypique — de la construction au web, en passant par la restauration —
+              m'a forgé une rigueur terrain et une vision business pour concevoir des solutions digitales
+              adaptées aux <strong className="text-white">indépendants et petites entreprises</strong>.
             </p>
           </motion.div>
 

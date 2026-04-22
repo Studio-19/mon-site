@@ -1,29 +1,59 @@
 import { motion, useInView } from 'framer-motion';
-import { UtensilsCrossed, Monitor } from 'lucide-react';
+import { UtensilsCrossed, Monitor, Wrench } from 'lucide-react';
 import { useRef } from 'react';
 
 const experiences = [
   {
     id: 1,
-    title: 'Développeur Web Indépendant',
-    date: 'Projet Récent',
+    title: 'Développeur web junior – Projet de cours',
+    date: 'HEPL · 2026',
     icon: <Monitor size={22} className="text-blue-400" />,
     description:
-      "Conception et création de A à Z d'un site web complet pour un particulier. De l'analyse des besoins au maquettage UX/UI, jusqu'au développement technique.",
-    skills: ['React', 'UI/UX', 'Tailwind CSS', 'Gestion de Projet'],
+      "Conception d'une application web complète : structure UX, intégration HTML/CSS/PHP responsive, et formulaire de contact relié à une base de données MySQL via phpMyAdmin.",
+    skills: ['HTML / CSS / PHP', 'MySQL / phpMyAdmin', 'Responsive Design', 'UX'],
     dotColor: 'bg-blue-500',
     glowColor: 'rgba(59, 130, 246, 0.3)',
   },
   {
     id: 2,
-    title: 'Secteur de la Restauration',
-    date: 'Depuis mes 15 ans',
+    title: 'Job étudiant – Service communal',
+    date: '2024',
+    icon: <Wrench size={22} className="text-emerald-400" />,
+    description:
+      "Soutien aux équipes techniques : petits travaux, rangement et entretien. Polyvalence, organisation et respect strict des consignes au quotidien.",
+    skills: ['Organisation', 'Polyvalence', 'Travail terrain'],
+    dotColor: 'bg-emerald-500',
+    glowColor: 'rgba(16, 185, 129, 0.2)',
+  },
+  {
+    id: 3,
+    title: 'Employé polyvalent – Restauration',
+    date: '2021 – 2026',
     icon: <UtensilsCrossed size={22} className="text-gray-400" />,
     description:
-      "Plusieurs années d'expérience en restauration. Cette expérience fondatrice m'a forgé une rigueur à toute épreuve, une grande résistance au stress et un sens aigu du contact client.",
-    skills: ['Rigueur', 'Contact Client', "Travail d'équipe", 'Adaptabilité'],
+      "5 ans d'expérience : préparation, mise en place, aide au service et plonge. Respect strict des normes d'hygiène et travail en équipe dans un environnement exigeant.",
+    skills: ['Rigueur', "Travail d'équipe", 'Hygiène & normes', 'Résistance au stress'],
     dotColor: 'bg-slate-500',
     glowColor: 'rgba(100, 116, 139, 0.2)',
+  },
+];
+
+const formations = [
+  {
+    degree: 'Bachelier en e-business',
+    school: 'HEPL – Liège',
+    period: '2024 → En cours',
+    color: 'text-blue-400',
+    border: 'border-blue-800/40',
+    bg: 'bg-blue-900/20',
+  },
+  {
+    degree: 'CESS – Technique de qualification',
+    school: 'Institut Pierrard – Virton',
+    period: '2020 – 2024',
+    color: 'text-gray-400',
+    border: 'border-slate-700/60',
+    bg: 'bg-slate-800/30',
   },
 ];
 
@@ -79,11 +109,10 @@ const Experience = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-60px' }}
                 transition={{ duration: 0.6, delay: index * 0.15, ease: [0.16, 1, 0.3, 1] }}
-                className={`relative flex gap-0 md:gap-0 ${
-                  index % 2 === 0
-                    ? 'md:flex-row'
-                    : 'md:flex-row-reverse'
-                }`}
+                className={`relative flex gap-0 md:gap-0 ${index % 2 === 0
+                  ? 'md:flex-row'
+                  : 'md:flex-row-reverse'
+                  }`}
               >
                 {/* Timeline dot */}
                 <div
@@ -143,6 +172,41 @@ const Experience = () => {
             ))}
           </div>
         </div>
+
+        {/* Formations */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="mt-24"
+        >
+          <div className="text-center mb-10">
+            <span className="text-blue-400 font-semibold tracking-widest text-xs uppercase mb-3 block">
+              Diplômes
+            </span>
+            <h3 className="text-2xl md:text-3xl font-bold text-white">
+              Mes <span className="text-blue-400">Formations</span>
+            </h3>
+          </div>
+          <div className="grid sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
+            {formations.map((f, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.15 }}
+                className={`border-gradient glass-dark p-6 rounded-2xl border ${f.border} ${f.bg}`}
+              >
+                <p className={`text-xs font-semibold tracking-widest uppercase mb-2 ${f.color}`}>{f.period}</p>
+                <h4 className="text-white font-bold text-base mb-1">{f.degree}</h4>
+                <p className="text-gray-400 text-sm">{f.school}</p>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
       </div>
     </section>
   );
