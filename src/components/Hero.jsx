@@ -10,46 +10,31 @@ const floatingTags = [
 ];
 
 const Hero = () => {
-
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex flex-col overflow-x-hidden"
+      className="relative min-h-screen flex flex-col overflow-x-hidden bg-gradient-to-br from-white via-blue-50/60 to-indigo-50/40 dark:from-slate-900 dark:via-slate-800/40 dark:to-slate-900"
     >
       {/* Dot grid */}
       <div className="absolute inset-0 dot-grid opacity-60 pointer-events-none" />
 
-      {/* Blobs - Optimized pour la performance */}
-      <div className="absolute top-1/4 left-1/4 w-[300px] h-[300px] md:w-[400px] md:h-[400px] bg-blue-600/15 rounded-full blur-[80px] md:blur-[100px] pointer-events-none animate-blob" style={{ willChange: 'transform' }} />
-      <div
-        className="absolute bottom-1/4 right-1/4 w-[250px] h-[250px] md:w-[350px] md:h-[350px] bg-indigo-500/10 rounded-full blur-[60px] md:blur-[90px] pointer-events-none animate-blob"
-        style={{ animationDelay: '3s', willChange: 'transform' }}
-      />
-      <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] md:w-[300px] md:h-[300px] bg-purple-600/8 rounded-full blur-[50px] md:blur-[80px] pointer-events-none animate-blob"
-        style={{ animationDelay: '6s', willChange: 'transform' }}
-      />
-
-      {/* Floating tags — optimisés pour tous les écrans */}
+      {/* Floating tags */}
       {floatingTags.map((tag) => (
         <motion.div
           key={tag.label}
-          className={`absolute hidden md:flex items-center gap-2 px-4 py-2 glass-dark rounded-full text-sm font-medium text-blue-300 border border-blue-800/40 animate-float-medium ${tag.className}`}
+          className={`absolute hidden md:flex items-center gap-2 px-4 py-2 bg-white/80 dark:bg-slate-800/80 rounded-full text-sm font-medium text-blue-700 dark:text-blue-300 border border-blue-200/60 dark:border-slate-700/60 shadow-sm ${tag.className}`}
           initial={{ opacity: 0, scale: 0.7 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: tag.delay + 1.2, duration: 0.5, ease: 'backOut' }}
-          style={{ animationDelay: `${tag.delay}s`, willChange: 'transform, opacity' }}
         >
-          <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
+          <span className="w-1.5 h-1.5 rounded-full bg-blue-500 dark:bg-blue-400 animate-pulse" />
           {tag.label}
         </motion.div>
       ))}
 
       {/* Main content */}
       <div className="flex-1 flex items-center justify-center pt-24 pb-8 px-6">
-        <motion.div
-          className="max-w-5xl w-full mx-auto text-center z-10 relative"
-        >
+        <motion.div className="max-w-5xl w-full mx-auto text-center z-10 relative">
           {/* Badge */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -57,25 +42,25 @@ const Hero = () => {
             transition={{ duration: 0.6 }}
             className="mb-6"
           >
-            <span className="inline-flex items-center gap-2 py-2 px-5 rounded-full bg-blue-900/40 border border-blue-700/50 text-blue-300 text-sm font-semibold tracking-wider">
-              <span className="w-2 h-2 bg-blue-400 rounded-full animate-pulse" />
+            <span className="inline-flex items-center gap-2 py-2 px-5 rounded-full bg-blue-100 dark:bg-blue-900/40 border border-blue-300/60 dark:border-blue-700/60 text-blue-700 dark:text-blue-300 text-sm font-semibold tracking-wider">
+              <span className="w-2 h-2 bg-blue-500 dark:bg-blue-400 rounded-full animate-pulse" />
               Doryann Genin · Étudiant
             </span>
           </motion.div>
 
           {/* Headline */}
           <motion.h1
-            className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-extrabold text-white tracking-tight leading-[1.08] mb-5 glow-text"
+            className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-[1.08] mb-5 glow-text"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
           >
-            Doryann étudiant en{' '}
+            Doryann bachelier en{' '}
             <br />
             <span className="text-shimmer">e-Business</span>
             <br />
-            et {' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-100 to-blue-300">
+            et{' '}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-800 via-blue-700 to-blue-500 dark:from-white dark:via-blue-300 dark:to-blue-400">
               Web Designer junior
             </span>
             .
@@ -83,7 +68,7 @@ const Hero = () => {
 
           {/* Subtext */}
           <motion.p
-            className="text-base sm:text-lg md:text-xl text-gray-400 mb-8 max-w-2xl mx-auto leading-relaxed"
+            className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-slate-400 mb-8 max-w-2xl mx-auto leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
@@ -100,15 +85,14 @@ const Hero = () => {
             className="flex justify-center"
           >
             <div className="inline-flex flex-col items-center relative">
-              {/* Buttons row */}
               <div className="flex flex-col sm:flex-row items-center gap-4">
                 <Link
                   to="contact"
                   smooth
                   duration={500}
-                  className="group relative flex items-center justify-center gap-2 px-8 py-4 bg-white text-slate-950 rounded-full font-bold text-lg transition-all transform hover:scale-105 cursor-pointer w-full sm:w-[220px] overflow-hidden shadow-[0_0_50px_rgba(255,255,255,0.12)]"
+                  className="group relative flex items-center justify-center gap-2 px-8 py-4 bg-slate-900 dark:bg-blue-600 text-white rounded-full font-bold text-lg transition-all transform hover:scale-105 cursor-pointer w-full sm:w-[220px] overflow-hidden shadow-[0_4px_24px_rgba(15,23,42,0.15)] dark:shadow-[0_4px_24px_rgba(37,99,235,0.3)]"
                 >
-                  <span className="absolute inset-0 bg-gradient-to-r from-blue-50 to-white opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <span className="absolute inset-0 bg-gradient-to-r from-slate-800 to-slate-900 dark:from-blue-700 dark:to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity" />
                   <span className="relative z-10 flex items-center gap-2">
                     Me Contacter
                     <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform duration-200" />
@@ -119,7 +103,7 @@ const Hero = () => {
                   to="experience"
                   smooth
                   duration={500}
-                  className="group flex items-center justify-center gap-2 px-8 py-4 rounded-full font-bold text-lg text-white border border-gray-700 hover:border-blue-400 hover:bg-blue-400/5 transition-all cursor-pointer w-full sm:w-[220px]"
+                  className="group flex items-center justify-center gap-2 px-8 py-4 rounded-full font-bold text-lg text-slate-800 dark:text-slate-200 border border-gray-300 dark:border-slate-600 hover:border-blue-500 dark:hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-slate-800 transition-all cursor-pointer w-full sm:w-[240px] whitespace-nowrap"
                 >
                   Découvrir mon profil
                   <ArrowRight
@@ -129,9 +113,9 @@ const Hero = () => {
                 </Link>
               </div>
 
-              {/* Scroll indicator — positioned precisely relative to the button group */}
+              {/* Scroll indicator */}
               <motion.div
-                className="flex flex-col items-center gap-2 text-gray-500 mt-6"
+                className="flex flex-col items-center gap-2 text-gray-400 dark:text-slate-600 mt-6"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 2, duration: 1 }}
@@ -148,9 +132,6 @@ const Hero = () => {
           </motion.div>
         </motion.div>
       </div>
-
-      {/* Scroll indicator — bottom of flex column, never overlaps content */}
-
     </section>
   );
 };

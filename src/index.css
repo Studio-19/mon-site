@@ -1,10 +1,12 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
-  --color-brand-blue: #0A192F;
-  --color-brand-light: #112240;
-  --color-brand-accent: #64FFDA;
-  --color-brand-white: #e6f1ff;
+  --color-brand-blue: #F8FAFC;
+  --color-brand-light: #E2E8F0;
+  --color-brand-accent: #2563EB;
+  --color-brand-white: #0F172A;
 }
 
 @layer base {
@@ -13,116 +15,36 @@
   }
 
   body {
-    @apply bg-brand-blue text-brand-white antialiased selection:bg-brand-accent selection:text-brand-blue;
+    @apply bg-brand-blue text-brand-white antialiased selection:bg-blue-200 selection:text-blue-900;
+    @apply dark:bg-slate-900 dark:text-white dark:selection:bg-blue-800 dark:selection:text-blue-100;
     box-sizing: border-box;
   }
 }
 
 @layer utilities {
   .glass {
-    @apply bg-brand-blue/80 backdrop-blur-md border border-brand-light/50;
+    @apply bg-white/80 border border-gray-200/70;
+    @apply dark:bg-slate-800/80 dark:border-slate-700/60;
   }
 
   .glass-dark {
-    @apply bg-slate-900/80 backdrop-blur-md border border-slate-800/60;
-    /* Isolate each card's paint to avoid triggering full-page repaints on hover */
-    contain: layout style paint;
-    /* Pre-promote to its own compositor layer for instant hover response */
-    will-change: transform;
+    @apply bg-white/90 border border-gray-200/80;
+    @apply dark:bg-slate-800/70 dark:border-slate-700/50;
   }
 }
 
-@keyframes gradient-shift {
-
-  0%,
-  100% {
-    background-position: 0% 50%;
-  }
-
-  50% {
-    background-position: 100% 50%;
-  }
-}
-
-@keyframes float-slow {
-
-  0%,
-  100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-
-  50% {
-    transform: translateY(-14px) rotate(2deg);
-  }
-}
-
-@keyframes float-medium {
-
-  0%,
-  100% {
-    transform: translateY(0px);
-  }
-
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-@keyframes blob-drift {
-
-  0%,
-  100% {
-    transform: translate(0, 0) scale(1);
-  }
-
-  33% {
-    transform: translate(30px, -20px) scale(1.08);
-  }
-
-  66% {
-    transform: translate(-20px, 15px) scale(0.95);
-  }
+.dark .dot-grid {
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
 }
 
 @keyframes shimmer {
-  0% {
-    background-position: -200% center;
-  }
-
-  100% {
-    background-position: 200% center;
-  }
-}
-
-@keyframes timeline-grow {
-  from {
-    transform: scaleY(0);
-  }
-
-  to {
-    transform: scaleY(1);
-  }
-}
-
-.animate-gradient-shift {
-  background-size: 400% 400%;
-  animation: gradient-shift 12s ease infinite;
-}
-
-.animate-float-slow {
-  animation: float-slow 6s ease-in-out infinite;
-}
-
-.animate-float-medium {
-  animation: float-medium 4s ease-in-out infinite;
-}
-
-.animate-blob {
-  animation: blob-drift 10s ease-in-out infinite;
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
 }
 
 .text-shimmer {
-  background: linear-gradient(90deg, #60a5fa, #a5b4fc, #93c5fd, #60a5fa);
+  background: linear-gradient(90deg, #1d4ed8, #4f46e5, #2563eb, #1d4ed8);
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -131,16 +53,16 @@
 }
 
 .dot-grid {
-  background-image: radial-gradient(circle, rgba(99, 179, 237, 0.08) 1px, transparent 1px);
+  background-image: radial-gradient(circle, rgba(15, 23, 42, 0.07) 1px, transparent 1px);
   background-size: 32px 32px;
 }
 
 .glow-blue {
-  box-shadow: 0 0 40px rgba(59, 130, 246, 0.25);
+  box-shadow: 0 0 40px rgba(37, 99, 235, 0.15);
 }
 
 .glow-text {
-  text-shadow: 0 0 40px rgba(147, 197, 253, 0.4);
+  text-shadow: 0 0 40px rgba(37, 99, 235, 0.15);
 }
 
 .border-gradient {
@@ -153,7 +75,7 @@
   inset: -1px;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(135deg, rgba(96, 165, 250, 0.5), rgba(165, 180, 252, 0.2), rgba(96, 165, 250, 0.5));
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.35), rgba(99, 102, 241, 0.15), rgba(37, 99, 235, 0.35));
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;

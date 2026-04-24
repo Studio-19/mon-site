@@ -1,16 +1,17 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-scroll';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Sun, Moon } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const navLinks = [
   { name: 'Accueil', to: 'hero' },
   { name: 'À propos', to: 'about' },
   { name: 'Expériences', to: 'experience' },
+  { name: 'Formations', to: 'formations' },
   { name: 'Contact', to: 'contact' },
 ];
 
-const Navbar = () => {
+const Navbar = ({ isDark, onToggleTheme }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState('hero');
@@ -28,7 +29,7 @@ const Navbar = () => {
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       className={`fixed w-full top-0 z-50 transition-all duration-300 ${
         scrolled
-          ? 'bg-brand-blue/80 backdrop-blur-xl border-b border-slate-800/60 py-3 shadow-[0_4px_30px_rgba(0,0,0,0.4)]'
+          ? 'bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-gray-200/70 dark:border-slate-800 py-3 shadow-sm'
           : 'bg-transparent py-6'
       }`}
     >
@@ -37,10 +38,10 @@ const Navbar = () => {
         <Link
           to="hero"
           smooth duration={500}
-          className="text-xl font-bold cursor-pointer text-white flex items-center gap-1 tracking-tight group"
+          className="text-xl font-bold cursor-pointer text-slate-900 dark:text-white flex items-center gap-1 tracking-tight group"
         >
-          <span className="group-hover:text-blue-200 transition-colors">Doryann</span>
-          <span className="text-blue-400 text-2xl leading-none">.</span>
+          <span className="group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">Doryann</span>
+          <span className="text-blue-600 dark:text-blue-400 text-2xl leading-none">.</span>
         </Link>
 
         {/* Desktop Nav */}
@@ -54,14 +55,14 @@ const Navbar = () => {
               onSetActive={() => setActive(link.to)}
               className={`relative px-4 py-2 rounded-full text-sm font-medium cursor-pointer transition-all duration-200 ${
                 active === link.to
-                  ? 'text-white'
-                  : 'text-gray-400 hover:text-white hover:bg-white/5'
+                  ? 'text-slate-900 dark:text-white'
+                  : 'text-gray-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-gray-100/60 dark:hover:bg-slate-800/60'
               }`}
             >
               {active === link.to && (
                 <motion.span
                   layoutId="nav-pill"
-                  className="absolute inset-0 bg-white/10 rounded-full border border-white/10"
+                  className="absolute inset-0 bg-blue-100 dark:bg-blue-900/50 rounded-full border border-blue-200/60 dark:border-blue-700/60"
                   transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                 />
               )}
@@ -69,45 +70,64 @@ const Navbar = () => {
             </Link>
           ))}
 
+          {/* Theme toggle */}
+          <button
+            onClick={onToggleTheme}
+            className="ml-2 p-2 rounded-full text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-slate-800 transition-all"
+            aria-label="Basculer le thème"
+          >
+            {isDark ? <Sun size={18} /> : <Moon size={18} />}
+          </button>
+
           <Link
             to="contact"
             smooth duration={500}
-            className="ml-4 px-5 py-2.5 bg-white text-slate-950 font-semibold rounded-full hover:bg-blue-50 transition-all transform hover:scale-105 cursor-pointer text-sm shadow-[0_0_20px_rgba(255,255,255,0.1)]"
+            className="ml-2 px-5 py-2.5 bg-slate-900 dark:bg-blue-600 text-white font-semibold rounded-full hover:bg-slate-800 dark:hover:bg-blue-500 transition-all transform hover:scale-105 cursor-pointer text-sm shadow-sm"
           >
             Travaillons ensemble
           </Link>
         </div>
 
-        {/* Mobile toggle */}
-        <button
-          className="md:hidden text-white p-1 hover:text-blue-300 transition-colors"
-          onClick={() => setIsOpen(!isOpen)}
-          aria-label="Toggle menu"
-        >
-          <AnimatePresence mode="wait" initial={false}>
-            {isOpen ? (
-              <motion.div
-                key="close"
-                initial={{ rotate: -90, opacity: 0 }}
-                animate={{ rotate: 0, opacity: 1 }}
-                exit={{ rotate: 90, opacity: 0 }}
-                transition={{ duration: 0.15 }}
-              >
-                <X size={26} />
-              </motion.div>
-            ) : (
-              <motion.div
-                key="open"
-                initial={{ rotate: 90, opacity: 0 }}
-                animate={{ rotate: 0, opacity: 1 }}
-                exit={{ rotate: -90, opacity: 0 }}
-                transition={{ duration: 0.15 }}
-              >
-                <Menu size={26} />
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </button>
+        {/* Mobile right side */}
+        <div className="md:hidden flex items-center gap-2">
+          <button
+            onClick={onToggleTheme}
+            className="p-2 rounded-full text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-slate-800 transition-all"
+            aria-label="Basculer le thème"
+          >
+            {isDark ? <Sun size={18} /> : <Moon size={18} />}
+          </button>
+
+          <button
+            className="text-slate-900 dark:text-white p-1 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle menu"
+          >
+            <AnimatePresence mode="wait" initial={false}>
+              {isOpen ? (
+                <motion.div
+                  key="close"
+                  initial={{ rotate: -90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: 90, opacity: 0 }}
+                  transition={{ duration: 0.15 }}
+                >
+                  <X size={26} />
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="open"
+                  initial={{ rotate: 90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: -90, opacity: 0 }}
+                  transition={{ duration: 0.15 }}
+                >
+                  <Menu size={26} />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </button>
+        </div>
       </div>
 
       {/* Mobile menu */}
@@ -118,7 +138,7 @@ const Navbar = () => {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25, ease: 'easeInOut' }}
-            className="md:hidden overflow-hidden bg-brand-blue/95 backdrop-blur-xl border-b border-slate-800/60"
+            className="md:hidden overflow-hidden bg-white/98 dark:bg-slate-900/98 border-b border-gray-200/60 dark:border-slate-800"
           >
             <div className="flex flex-col items-center py-6 gap-2 px-6">
               {navLinks.map((link, i) => (
@@ -133,7 +153,7 @@ const Navbar = () => {
                     to={link.to}
                     smooth duration={500}
                     onClick={() => setIsOpen(false)}
-                    className="block w-full text-center text-gray-300 hover:text-white hover:bg-white/5 text-lg font-medium cursor-pointer py-3 rounded-xl transition-all"
+                    className="block w-full text-center text-gray-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-slate-800 text-lg font-medium cursor-pointer py-3 rounded-xl transition-all"
                   >
                     {link.name}
                   </Link>
@@ -149,7 +169,7 @@ const Navbar = () => {
                   to="contact"
                   smooth duration={500}
                   onClick={() => setIsOpen(false)}
-                  className="block w-full text-center px-5 py-3 bg-white text-slate-950 font-semibold rounded-full cursor-pointer text-sm"
+                  className="block w-full text-center px-5 py-3 bg-slate-900 dark:bg-blue-600 text-white font-semibold rounded-full cursor-pointer text-sm"
                 >
                   Travaillons ensemble
                 </Link>
